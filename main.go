@@ -1,13 +1,15 @@
 package main
 
-import "net/http"
-
-func handler(w http.ResponseWriter, r *http.Request) {
-	w.Header().Set("content-type", "application/json")
-	w.Write([]byte(`{}`))
-}
+import (
+	"awesomeProject/pokemon"
+	"fmt"
+)
 
 func main() {
-	http.HandleFunc("/", handler)
-	http.ListenAndServe(":8001", nil)
+	pickachu := pokemon.Pokemon{
+		ID:   1,
+		NOM:  "PICKACHU",
+		TYPE: "ELE",
+	}
+	fmt.Println("nom :\n", pickachu.NOM, "type :", pickachu.TYPE)
 }

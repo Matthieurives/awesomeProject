@@ -4,7 +4,7 @@ import "net/http"
 
 func handler(w http.ResponseWriter, r *http.Request) {
 	w.Header().Set("content-type", "application/json")
-	w.Write([]byte(`error $404 t'es pas là fck u fdp`))
+	w.Write([]byte(`{}`))
 }
 
 func main() {

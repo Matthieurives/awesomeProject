@@ -1,15 +1,31 @@
 package main
 
 import (
-	"awesomeProject/pokemon"
 	"fmt"
+	"html/template"
+	"net/http"
 )
 
-func main() {
-	pickachu := pokemon.Pokemon{
-		ID:   1,
-		NOM:  "PICKACHU",
-		TYPE: "ELE",
+const (
+	Port = ":8080"
+)
+
+func serveStatic(w http.ResponseWriter, r *http.Request) {
+	t, err := template.ParseFiles("./html/test.html")
+	if err != nil {
+		fmt.Println(err)
 	}
-	fmt.Println("nom :\n", pickachu.NOM, "type :", pickachu.TYPE)
+	items := struct {
+		Pokemon string
+		Type    string
+	}{
+		Pokemon: "pikachu",
+		Type:    "elec",
+	}
+	t.Execute(w, items)
+}
+
+func main() {
+	http.HandleFunc("/", serveStatic)
+	http.ListenAndServe(Port, nil)
 }
